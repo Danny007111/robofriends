@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {  Component } from 'react';
 import CardList from './CardList';
 import { robots } from './robots'; 
 import SearchBox from './SearchBox'
@@ -13,17 +13,18 @@ class App extends Component {
             searchfield: ''
         }
     }
-
+    // const [find, onFind] = useState('')
     // Every time search changes it (logs) -puts- out an EVENT
     onSearchChange = (event) => {
         this.setState({ searchfield: event.target.value})
-
+        
+        
         
     }
 
     render() {
         const filteredRobots = this.state.robots.filter(robot => {
-            return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase)
+            return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
         })
 
         return (
@@ -38,4 +39,5 @@ class App extends Component {
 }
 // to make the page interactive we need to join searchbox and cardlist connect togeether, USING STATE... but where? ... in APP!!!
 // Remember State is parent of props (STATE >> props)
+//Cardlist needs to filter out cards that are not matched. 
 export default App;
