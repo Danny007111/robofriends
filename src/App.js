@@ -2,6 +2,7 @@ import React, {  Component } from 'react';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
 import './App.css';
+import Scroll from './Scroll'
 
 
 // smart components  -VVVVVV-
@@ -50,7 +51,9 @@ class App extends Component {
                 <div className='tc'>
                     <h1 className='f2'>Robofriends</h1>
                     <SearchBox searchChange={this.onSearchChange}/>
-                    <CardList robots = {filteredRobots}/>
+                    <Scroll>
+                        <CardList robots = {filteredRobots}/>
+                    </Scroll>
                 </div>
             );
         }
