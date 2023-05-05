@@ -1,8 +1,8 @@
 import React, {  Component } from 'react';
-import CardList from './CardList';
-import SearchBox from './SearchBox';
+import CardList from '../components/CardList';
+import SearchBox from '../components/SearchBox';
 import './App.css';
-import Scroll from './Scroll'
+import Scroll from '../components/Scroll'
 
 
 // smart components  -VVVVVV-
@@ -39,12 +39,16 @@ class App extends Component {
     }
 
     render() {
-        const filteredRobots = this.state.robots.filter(robot => {
-            return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
+
+        // filter out this.state for cleaner code!!!
+        const {robots, searchfield} = this.state;
+
+        const filteredRobots = robots.filter(robot => {
+            return robot.name.toLowerCase().includes(searchfield.toLowerCase())
         })
 
         // adding loading if robots === 0
-        if(this.state.robots.length === 0) {
+        if(!robots.length) {
             return <h1>Loading...</h1>
         } else {
             return (
