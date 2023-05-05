@@ -1,19 +1,33 @@
 import React, {  Component } from 'react';
 import CardList from './CardList';
-import { robots } from './robots'; 
 import SearchBox from './SearchBox';
 import './App.css';
 
 
-
+// smart components  -VVVVVV-
 class App extends Component {
     constructor() {
         super()
         this.state = {
-            robots: robots,
+            robots: [],
             searchfield: ''
         }
     }
+
+// This "compDidMount" its called automatically even if not called.
+// because we updated state in compDidMount, it runs (render) again.
+
+    componentDidMount() {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(responce => {
+                return responce.json();
+            }).then(users => {
+                this.setState({ robots: users})
+            })
+    }
+
+
+
     // const [find, onFind] = useState('')
     // Every time search changes it (logs) -puts- out an EVENT
     onSearchChange = (event) => {
@@ -42,3 +56,4 @@ class App extends Component {
 // Remember State is parent of props (STATE >> props)
 //Cardlist needs to filter out cards that are not matched. 
 export default App;
+
