@@ -20,6 +20,7 @@ class App extends Component {
 // because we updated state in compDidMount, it runs (render) again.
 
     componentDidMount() {
+        // console.log(this.props.store.getState())
         fetch('https://jsonplaceholder.typicode.com/users')
             .then(responce => {
                 return responce.json();
