@@ -5,14 +5,29 @@ import './App.css';
 import Scroll from '../components/Scroll';
 import ErrorBoundry from '../components/ErrorBoundry';
 
+import { setSearchField } from '../actions';
+import { connect } from 'react-redux';
+// import { searchRobots } from '../reducers';
+
+const mapStateToProps = state => {
+    return {
+        searchField: state.searchField
+        // searchField: state.searchField
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+    }
+}
 
 // smart components  -VVVVVV-
 class App extends Component {
     constructor() {
         super()
         this.state = {
-            robots: [],
-            searchfield: ''
+            robots: []
+            // searchfield: ''
         }
     }
 
@@ -33,20 +48,19 @@ class App extends Component {
 
     // const [find, onFind] = useState('')
     // Every time search changes it (logs) -puts- out an EVENT
-    onSearchChange = (event) => {
-        this.setState({ searchfield: event.target.value})
-        
-        
-        
-    }
+
+    // onSearchChange = (event) => {
+    //     this.setState({ searchfield: event.target.value})
+    // }
 
     render() {
 
         // filter out this.state for cleaner code!!!
-        const {robots, searchfield} = this.state;
-
+        const {robots} = this.state;
+        const {searchField, onSearchChange} = this.props
         const filteredRobots = robots.filter(robot => {
-            return robot.name.toLowerCase().includes(searchfield.toLowerCase())
+            console.log(searchField)
+            return robot.name.toLowerCase().includes(searchField.toLowerCase())
         })
 
         // adding loading if robots === 0
@@ -56,7 +70,7 @@ class App extends Component {
             return (
                 <div className='tc'>
                     <h1 className='f2'>Robofriends</h1>
-                    <SearchBox searchChange={this.onSearchChange}/>
+                    <SearchBox searchChange={onSearchChange}/>
                     <Scroll>
                         <ErrorBoundry>
                             <CardList robots = {filteredRobots}/>
@@ -70,6 +84,8 @@ class App extends Component {
 }
 // to make the page interactive we need to join searchbox and cardlist connect togeether, USING STATE... but where? ... in APP!!!
 // Remember State is parent of props (STATE >> props)
-//Cardlist needs to filter out cards that are not matched. 
-export default App;
+//Cardlist needs to filter out cards that are not matched.
+
+// Higher order function
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 

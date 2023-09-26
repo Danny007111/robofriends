@@ -6,6 +6,7 @@ import 'tachyons';
 import App from './containers/App';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+// import { configureStore } from '@reduxjs/toolkit'
 import { searchRobots } from './reducers';
 // rootReducer
 const store = createStore(searchRobots)
